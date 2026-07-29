@@ -1,0 +1,653 @@
+<title>La Socketterie — Planification du développement du site</title>
+<style>
+  :root {
+    --paper: #FBF8F4;
+    --paper-raised: #FFFFFF;
+    --ink: #22302B;
+    --ink-soft: #56655F;
+    --accent-teal: #3E7E6D;
+    --accent-coral: #C85A36;
+    --accent-orange: #B4740F;
+    --teal-tint: #E4EEE9;
+    --coral-tint: #FBEAE1;
+    --orange-tint: #FCEFDB;
+    --border: #DBE1D8;
+    --thead-bg: #3E7E6D;
+    --thead-fg: #FFFFFF;
+    --code-bg: #F1EEE7;
+    --shadow: 0 1px 2px rgba(34,48,43,.06), 0 8px 24px rgba(34,48,43,.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #16211D;
+      --paper-raised: #1D2C26;
+      --ink: #ECE7DF;
+      --ink-soft: #AEBBB2;
+      --accent-teal: #8BCAB4;
+      --accent-coral: #F0916A;
+      --accent-orange: #F0B15C;
+      --teal-tint: #21332C;
+      --coral-tint: #2E2119;
+      --orange-tint: #2E2716;
+      --border: #33433C;
+      --thead-bg: #2A3D37;
+      --thead-fg: #EFE9E0;
+      --code-bg: #10201A;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #16211D; --paper-raised: #1D2C26; --ink: #ECE7DF; --ink-soft: #AEBBB2;
+    --accent-teal: #8BCAB4; --accent-coral: #F0916A; --accent-orange: #F0B15C;
+    --teal-tint: #21332C; --coral-tint: #2E2119; --orange-tint: #2E2716;
+    --border: #33433C; --thead-bg: #2A3D37; --thead-fg: #EFE9E0; --code-bg: #10201A;
+  }
+  :root[data-theme="light"] {
+    --paper: #FBF8F4; --paper-raised: #FFFFFF; --ink: #22302B; --ink-soft: #56655F;
+    --accent-teal: #3E7E6D; --accent-coral: #C85A36; --accent-orange: #B4740F;
+    --teal-tint: #E4EEE9; --coral-tint: #FBEAE1; --orange-tint: #FCEFDB;
+    --border: #DBE1D8; --thead-bg: #3E7E6D; --thead-fg: #FFFFFF; --code-bg: #F1EEE7;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+  h1, h2, h3 {
+    font-family: Charter, "Iowan Old Style", "Georgia", ui-serif, serif;
+    text-wrap: balance;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  h1 { font-size: 2.3rem; letter-spacing: -0.01em; }
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 3rem;
+    padding-top: 1.1rem;
+    border-top: 2px solid var(--border);
+  }
+  h3 { font-size: 1.15rem; margin-top: 2rem; color: var(--accent-teal); }
+  p { max-width: 68ch; color: var(--ink); }
+  .lede { color: var(--ink-soft); max-width: 62ch; }
+
+  /* ---- Cover ---- */
+  .cover {
+    padding: 64px 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .cover .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    font-size: .78rem;
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  .swatch-strip {
+    display: flex;
+    height: 14px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .swatch-strip span { flex: 1; }
+  .cover-meta {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 8px 40px;
+    font-size: .92rem;
+    color: var(--ink-soft);
+    margin-top: 8px;
+  }
+  .cover-meta dt { font-weight: 600; color: var(--ink); }
+  .cover-meta dd { margin: 0; }
+
+  /* ---- TOC ---- */
+  nav.toc {
+    background: var(--paper-raised);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 28px;
+    box-shadow: var(--shadow);
+    margin: 8px 0 40px;
+  }
+  nav.toc p { margin: 0 0 10px; font-weight: 600; }
+  nav.toc ol { margin: 0; padding-left: 1.2em; columns: 2; column-gap: 32px; }
+  nav.toc li { margin-bottom: 6px; break-inside: avoid; }
+  nav.toc a { color: var(--accent-teal); text-decoration: none; }
+  nav.toc a:hover, nav.toc a:focus-visible { text-decoration: underline; }
+
+  /* ---- Tables ---- */
+  .table-wrap { overflow-x: auto; margin: 1.2rem 0; border-radius: 8px; box-shadow: var(--shadow); }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; background: var(--paper-raised); font-size: .93rem; }
+  caption { text-align: left; font-weight: 600; padding: 8px 4px; color: var(--ink-soft); }
+  th, td { padding: 9px 12px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+  thead th { background: var(--thead-bg); color: var(--thead-fg); font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; position: sticky; top: 0; }
+  tbody tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tfoot td { font-weight: 700; border-top: 2px solid var(--border); background: var(--teal-tint); }
+
+  /* ---- Callouts ---- */
+  .callout { border-left: 4px solid var(--accent-teal); background: var(--teal-tint); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+  .callout.warn { border-color: var(--accent-orange); background: var(--orange-tint); }
+  .callout.flag { border-color: var(--accent-coral); background: var(--coral-tint); }
+  .callout p { margin: 0; max-width: none; }
+  .callout .label { font-weight: 700; text-transform: uppercase; font-size: .75rem; letter-spacing: .06em; display: block; margin-bottom: 4px; }
+
+  /* ---- Diagram panel ---- */
+  .diagram-panel { background: var(--paper-raised); border: 1px solid var(--border); border-radius: 10px; padding: 18px; box-shadow: var(--shadow); overflow-x: auto; margin: 1.2rem 0; }
+
+  /* ---- Kanban board ---- */
+  .kanban { display: grid; grid-template-columns: repeat(5, minmax(160px, 1fr)); gap: 12px; margin: 1.2rem 0; }
+  .kanban-col { background: var(--paper-raised); border: 1px solid var(--border); border-radius: 10px; padding: 10px; box-shadow: var(--shadow); }
+  .kanban-col h4 { margin: 0 0 10px; font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-soft); }
+  .kanban-card { background: var(--teal-tint); border-radius: 6px; padding: 8px 10px; font-size: .82rem; margin-bottom: 8px; line-height: 1.35; }
+  .kanban-col:nth-child(4) .kanban-card { background: var(--coral-tint); }
+  .kanban-col:nth-child(5) .kanban-card { background: var(--orange-tint); }
+
+  /* ---- Misc ---- */
+  code, .mono { font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, monospace; font-size: .88em; background: var(--code-bg); padding: .12em .4em; border-radius: 4px; }
+  a { color: var(--accent-teal); }
+  .footnote { font-size: .85rem; color: var(--ink-soft); }
+  hr.section-end { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+  .total-banner { display: flex; justify-content: space-between; align-items: baseline; background: var(--teal-tint); border-radius: 10px; padding: 18px 24px; margin: 1.4rem 0; }
+  .total-banner .amount { font-family: Charter, Georgia, serif; font-size: 1.8rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  @media print {
+    body { background: #fff; }
+    nav.toc { display: none; }
+    .page { max-width: none; padding: 0 8mm; }
+    h2 { break-before: page; }
+    .diagram-panel, .table-wrap, .kanban { break-inside: avoid; }
+  }
+  @media (max-width: 640px) {
+    .kanban { grid-template-columns: 1fr; }
+    nav.toc ol { columns: 1; }
+    .cover-meta { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="page">
+
+  <header class="cover">
+    <span class="eyebrow">Planification de projet — Développement web</span>
+    <h1>La Socketterie<br>Site vitrine &amp; boutique en ligne</h1>
+    <p class="lede">Dossier de cadrage et de planification remis en l'absence du Lead Developer : description technique de la solution, user stories, tableau Kanban, diagramme de Gantt et estimation des coûts.</p>
+    <div class="swatch-strip" role="img" aria-label="Palette de couleur de la marque : vert #77B099, corail #F5895D, orange #F6A447, pêche #F9DACD">
+      <span style="background:#77B099"></span><span style="background:#F5895D"></span><span style="background:#F6A447"></span><span style="background:#F9DACD"></span>
+    </div>
+    <dl class="cover-meta">
+      <div><dt>Client</dt><dd>La Socketterie — Nice</dd></div>
+      <div><dt>Rédigé par</dt><dd>[Prénom NOM], développeur full-stack</dd></div>
+      <div><dt>Date</dt><dd>29 juillet 2026</dd></div>
+      <div><dt>Échéance 1</dt><dd>Site présentable — tournage TV (J+3 mois)</dd></div>
+      <div><dt>Échéance 2</dt><dd>Site fonctionnel — diffusion (J+4 mois)</dd></div>
+      <div><dt>Version</dt><dd>1.0</dd></div>
+    </dl>
+  </header>
+
+  <nav class="toc" aria-label="Sommaire">
+    <p>Sommaire</p>
+    <ol>
+      <li><a href="#technique">Description technique de la solution</a></li>
+      <li><a href="#stories">User stories</a></li>
+      <li><a href="#kanban">Kanban</a></li>
+      <li><a href="#gantt">Diagramme de Gantt</a></li>
+      <li><a href="#couts">Estimation du coût</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============ 1. DESCRIPTION TECHNIQUE ============ -->
+  <section id="technique">
+    <h2>1. Description technique de la solution</h2>
+
+    <h3>1.1 Contexte et contraintes de cadrage</h3>
+    <p>La Socketterie est une TPE (boutique physique à Nice, activité de tricot artisanal) qui souhaite un <strong>site vitrine + boutique en ligne</strong>, à destination d'une cible jeune (20-35 ans), en français uniquement, en euros, avec livraison acceptée dans toute l'Union Européenne. Deux échéances contractuelles structurent le projet : le site doit être <strong>présentable</strong> dans 3 mois (tournage TV) et <strong>totalement fonctionnel et testé</strong> avant la diffusion, un mois plus tard (soit environ 4 mois / 18 semaines de projet au total).</p>
+    <p class="lede">Compte tenu de ces contraintes (délai court, équipe réduite composée de deux alternants à 80 %, deux freelances plafonnés à 5 jours chacun), l'architecture retenue privilégie des technologies matures et rapides à mettre en œuvre plutôt que des choix expérimentaux.</p>
+
+    <h3>1.2 Choix technologiques</h3>
+    <p>Architecture <strong>découplée</strong> (headless) : une API back-end expose les données et la logique métier, consommée par une application front-end. David (front) et Jonathan (back) peuvent ainsi travailler en parallèle dès le sprint de développement, sur la base d'un contrat d'interface (API REST documentée en OpenAPI/Swagger) défini dès la phase de conception.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Brique</th><th>Choix retenu</th><th>Justification</th></tr></thead>
+        <tbody>
+          <tr><td>Front-end</td><td>Next.js (React) + TypeScript</td><td>Rendu serveur (SSR/SSG) indispensable au <strong>SEO</strong> exigé ; moins de JS exécuté côté client → cohérent avec l'<strong>éco-conception</strong> ; écosystème très documenté, facilite l'onboarding de David.</td></tr>
+          <tr><td>Back-end</td><td>Node.js + NestJS + TypeScript</td><td>Même langage que le front → mutualisation des compétences dans une petite équipe, montée en compétence plus rapide de Jonathan ; structure imposée par NestJS qui limite les dérives dans un projet à délai serré.</td></tr>
+          <tr><td>Base de données</td><td>PostgreSQL (managée)</td><td>Modèle relationnel adapté aux commandes/factures (transactions ACID nécessaires pour la comptabilité) ; sauvegardes gérées par l'hébergeur.</td></tr>
+          <tr><td>ORM</td><td>Prisma</td><td>Migrations versionnées, typage bout-en-bout, moins d'erreurs de requêtes.</td></tr>
+          <tr><td>Authentification</td><td>JWT + refresh token en cookie httpOnly/Secure</td><td>Évite l'exposition du token en <code>localStorage</code> (XSS) ; RBAC par rôle (visiteur connecté, commercial, comptabilité, admin).</td></tr>
+          <tr><td>Paiement</td><td>Stripe (Checkout + webhooks)</td><td>Imposé par le client ; aucune donnée bancaire sur nos serveurs (scope PCI-DSS SAQ A) ; les webhooks déclenchent les statuts de commande.</td></tr>
+          <tr><td>Contenu statique</td><td>Module dédié dans le back-office NestJS</td><td>Évite d'ajouter un second système à maintenir (coût, sécurité, empreinte serveur) pour un volume de contenu de TPE.</td></tr>
+          <tr><td>Emails transactionnels</td><td>Brevo (société française, hébergement UE)</td><td>Statuts de commande ; conformité RGPD facilitée, DPA disponible.</td></tr>
+          <tr><td>Export comptable</td><td>Génération CSV à la demande</td><td>Format demandé pour l'intégration dans le logiciel comptable existant.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <span class="label">Alternative écartée</span>
+      <p>Une solution "boîte" (WooCommerce/PrestaShop/Shopify) aurait réduit le temps de mise en place de la boutique de base, mais aurait rendu plus coûteuse l'implémentation des workflows spécifiques (rôles différenciés, export comptable sur mesure, transmission logistique). Ce choix reste réévaluable si le budget se resserre.</p>
+    </div>
+
+    <h3>1.3 Nom de domaine et hébergement</h3>
+    <ul>
+      <li><strong>Domaine</strong> : réservation de <code>lasocketterie.fr</code> (confiance et référencement local) et de <code>lasocketterie.com</code> à titre défensif (redirection). DNSSEC et Whois privacy activés.</li>
+      <li><strong>Hébergement</strong> : hébergeur basé en UE, engagé sur les énergies renouvelables (cohérent RGPD et éco-conception) — ex. Scaleway ou Infomaniak.
+        <ul>
+          <li>Environnement de <em>staging</em> identique à la production pour valider chaque livraison.</li>
+          <li>Base managée avec sauvegardes quotidiennes automatiques (rétention 30 jours) et tests de restauration périodiques.</li>
+          <li>Stockage objet (S3-compatible) + CDN pour les images produits (formats WebP/AVIF, compression, lazy-loading).</li>
+          <li>TLS via Let's Encrypt, HTTPS forcé sur tout le site.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>1.4 Services tiers</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Service</th><th>Usage</th><th>Point d'attention</th></tr></thead>
+        <tbody>
+          <tr><td>Stripe</td><td>Paiement carte, remboursements</td><td>Coût variable en % du CA (cf. §5)</td></tr>
+          <tr><td>Brevo</td><td>Emails transactionnels</td><td>Hébergement UE, DPA à signer</td></tr>
+          <tr><td>Matomo (auto-hébergé)</td><td>Statistiques d'audience</td><td>Alternative RGPD à Google Analytics, aucune donnée hors UE</td></tr>
+          <tr><td>Axeptio / Tarteaucitron.js</td><td>Consentement cookies</td><td>Solution FR/open-source, conforme CNIL</td></tr>
+          <tr><td>Sentry</td><td>Suivi des erreurs en production</td><td>Alerting en cas d'incident</td></tr>
+          <tr><td>GitHub / GitHub Actions</td><td>Code, CI/CD</td><td>Voir §1.6</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>1.5 Sécurité</h3>
+    <ul>
+      <li><strong>Transport</strong> : HTTPS forcé, en-têtes CSP/HSTS/X-Content-Type-Options/X-Frame-Options.</li>
+      <li><strong>Authentification</strong> : mots de passe hashés (Argon2), rate limiting sur les endpoints de connexion.</li>
+      <li><strong>Autorisation</strong> : RBAC vérifié côté API à chaque requête, jamais uniquement côté front.</li>
+      <li><strong>Données</strong> : validation systématique des entrées, requêtes paramétrées via l'ORM, échappement des sorties, protection CSRF.</li>
+      <li><strong>Paiement</strong> : aucune donnée carte sur nos serveurs (Stripe Elements/Checkout hébergé).</li>
+      <li><strong>Secrets</strong> : variables d'environnement par environnement, jamais commitées, coffre-fort CI/hébergeur.</li>
+      <li><strong>Dépendances</strong> : mises à jour automatisées (Dependabot/Renovate), audit intégré à la CI.</li>
+      <li><strong>RGPD</strong> : minimisation des données, durée de conservation définie, parcours accès/rectification/suppression, DPA avec les sous-traitants.</li>
+      <li><strong>Sauvegardes</strong> : quotidiennes, chiffrées, testées périodiquement.</li>
+    </ul>
+
+    <h3>1.6 Organisation du suivi et du partage du code</h3>
+    <ul>
+      <li>Dépôt Git privé (GitHub), branche <code>main</code> protégée (revue obligatoire, CI verte requise).</li>
+      <li>Workflow : <code>main</code> (production) / <code>develop</code> (staging) / <code>feature/xxx</code> par user story, fusion via pull request avec relecture croisée.</li>
+      <li>Convention <em>Conventional Commits</em> pour un changelog lisible.</li>
+      <li>CI/CD (GitHub Actions) : lint, tests, build, audit de sécurité à chaque pull request ; déploiement automatique de <code>develop</code> sur staging ; production déclenchée manuellement après validation.</li>
+      <li>Suivi des tâches : GitHub Projects, lié aux issues et pull requests (cf. §3), pour tracer le lien user story → code → statut.</li>
+      <li>Documentation : README technique, documentation d'API générée (Swagger), journal des décisions d'architecture (ADR) pour faciliter la reprise de contexte par le Lead Developer à son retour.</li>
+    </ul>
+
+    <h3>1.7 Grandes lignes du contrat de maintenance</h3>
+    <p>À l'issue de la mise en production, un contrat de <strong>Tierce Maintenance Applicative (TMA)</strong> est proposé, reconductible annuellement :</p>
+    <ul>
+      <li><strong>Corrective</strong> : anomalies bloquantes sous 24h ouvrées, mineures sous 72h.</li>
+      <li><strong>Préventive/sécurité</strong> : veille et application mensuelle des correctifs de sécurité.</li>
+      <li><strong>Évolutive</strong> : banque de 8h/mois incluses ; au-delà, devis au TJM en vigueur.</li>
+      <li><strong>Supervision</strong> : monitoring de disponibilité, suivi Sentry, vérification des sauvegardes.</li>
+      <li><strong>Modalités</strong> : forfait mensuel, engagement 12 mois reconductible tacitement, préavis de résiliation de 2 mois.</li>
+    </ul>
+
+    <div class="callout flag">
+      <span class="label">Point de vigilance</span>
+      <p>La police du logo (Stadio Now Display) a été trouvée sous forme de <strong>version d'essai</strong> sur un site tiers. Avant mise en production, vérifier et acquérir une licence commerciale en règle auprès de la fonderie éditrice, faute de quoi l'utilisation du logo sur un site marchand exposerait le client à un risque juridique (budgété en §5, à remonter au directeur dès son retour).</p>
+    </div>
+  </section>
+
+  <!-- ============ 2. USER STORIES ============ -->
+  <section id="stories">
+    <h2>2. User stories</h2>
+    <p class="lede">Priorité MoSCoW : <strong>Must</strong> (indispensable), <strong>Should</strong> (important), <strong>Could</strong> (souhaitable). Estimation en jours-développeur.</p>
+
+    <h3>Épopée A — Pages publiques &amp; contenu</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
+      <tbody>
+        <tr><td>A1</td><td>Visiteur</td><td>En tant que visiteur, je veux consulter les pages À propos, CGV et Mentions légales afin de connaître l'entreprise et ses conditions.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>A2</td><td>Visiteur</td><td>En tant que visiteur, je veux consulter les articles d'actualité de la marque afin de suivre sa vie et son actualité.</td><td>Should</td><td class="num">3 j</td></tr>
+        <tr><td>A3</td><td>Visiteur</td><td>En tant que visiteur, je veux utiliser un formulaire de contact afin de poser une question à l'entreprise.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>A4</td><td>Visiteur</td><td>En tant que visiteur, je veux naviguer sur le site depuis mon mobile, ma tablette ou mon ordinateur afin d'avoir une expérience adaptée à mon support.</td><td>Must</td><td class="num">5 j</td></tr>
+        <tr><td>A5</td><td>Porteur de projet</td><td>En tant que porteur de projet, je veux que le site soit bien référencé sur les moteurs de recherche afin que les visiteurs découvrent la marque.</td><td>Must</td><td class="num">4 j</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Épopée B — Boutique / Catalogue</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
+      <tbody>
+        <tr><td>B1</td><td>Visiteur</td><td>En tant que visiteur, je veux parcourir le catalogue par catégorie afin de trouver facilement un produit.</td><td>Must</td><td class="num">5 j</td></tr>
+        <tr><td>B2</td><td>Visiteur</td><td>En tant que visiteur, je veux consulter la fiche détaillée d'un produit (photos, tailles, prix, description) afin de décider de l'achat.</td><td>Must</td><td class="num">4 j</td></tr>
+        <tr><td>B3</td><td>Visiteur</td><td>En tant que visiteur, je veux rechercher un produit par mot-clé afin de gagner du temps.</td><td>Should</td><td class="num">3 j</td></tr>
+        <tr><td>B4</td><td>Visiteur</td><td>En tant que visiteur, je veux filtrer les produits par taille, couleur ou prix afin d'affiner ma recherche.</td><td>Should</td><td class="num">3 j</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Épopée C — Panier &amp; commande</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
+      <tbody>
+        <tr><td>C1</td><td>Visiteur</td><td>En tant que visiteur, je veux ajouter un ou plusieurs articles à mon panier afin de préparer ma commande.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>C2</td><td>Visiteur</td><td>En tant que visiteur, je veux modifier les quantités ou retirer un article de mon panier afin d'ajuster ma commande.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>C3</td><td>Visiteur</td><td>En tant que visiteur, je veux voir le récapitulatif de mon panier (sous-total, livraison, total) afin de connaître le montant exact à payer.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>C4</td><td>Visiteur</td><td>En tant que visiteur, je dois créer un compte ou me connecter afin de pouvoir valider ma commande.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>C5</td><td>Client connecté</td><td>En tant que client connecté, je veux choisir un mode de livraison parmi ceux proposés afin d'adapter la livraison à mes besoins.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>C6</td><td>Client connecté</td><td>En tant que client connecté, je veux payer ma commande par carte bancaire via Stripe afin de la finaliser en toute sécurité.</td><td>Must</td><td class="num">5 j</td></tr>
+        <tr><td>C7</td><td>Client connecté (UE)</td><td>En tant que client résidant dans l'Union européenne, je veux pouvoir commander où que je sois en UE afin d'accéder à la boutique depuis mon pays.</td><td>Must</td><td class="num">3 j</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Épopée D — Compte client</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
+      <tbody>
+        <tr><td>D1</td><td>Visiteur</td><td>En tant que visiteur, je veux créer un compte avec mon email et un mot de passe afin d'accéder aux fonctionnalités réservées aux clients.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>D2</td><td>Client connecté</td><td>En tant que client connecté, je veux modifier mes informations personnelles (adresse, email, mot de passe) afin de les maintenir à jour.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>D3</td><td>Client connecté</td><td>En tant que client connecté, je veux consulter l'historique de mes commandes afin de suivre mes achats passés.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>D4</td><td>Client connecté</td><td>En tant que client connecté, je veux télécharger mes factures afin de les conserver.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>D5</td><td>Client</td><td>En tant que client, je veux réinitialiser mon mot de passe en cas d'oubli afin de retrouver l'accès à mon compte.</td><td>Must</td><td class="num">2 j</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Épopée E — Notifications</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
+      <tbody>
+        <tr><td>E1</td><td>Client</td><td>En tant que client, je veux recevoir un email à chaque changement de statut de ma commande (validée, payée, en préparation, expédiée) afin de suivre son avancement.</td><td>Must</td><td class="num">3 j</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Épopée F — Back-office Équipe commerciale</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
+      <tbody>
+        <tr><td>F1</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux créer, modifier et publier un article de la boutique afin de tenir le catalogue à jour.</td><td>Must</td><td class="num">5 j</td></tr>
+        <tr><td>F2</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux consulter la liste des commandes et leur statut afin de suivre l'activité de la boutique.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>F3</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux éditer les informations d'une commande validée afin de les transmettre à la logistique pour colisage et étiquetage.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>F4</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux marquer une commande comme expédiée une fois informé par la logistique afin de déclencher l'email de suivi au client.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>F5</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux consulter et gérer la fiche d'un client afin de répondre à ses demandes.</td><td>Should</td><td class="num">3 j</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Épopée G — Back-office Comptabilité</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
+      <tbody>
+        <tr><td>G1</td><td>Comptabilité</td><td>En tant que membre de la comptabilité, je veux consulter la liste des commandes et factures afin de suivre l'activité financière.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>G2</td><td>Comptabilité</td><td>En tant que membre de la comptabilité, je veux modifier une facture afin de corriger une erreur avant export.</td><td>Should</td><td class="num">2 j</td></tr>
+        <tr><td>G3</td><td>Comptabilité</td><td>En tant que membre de la comptabilité, je veux exporter les commandes/factures au format CSV sur une période donnée afin de les intégrer dans le logiciel comptable.</td><td>Must</td><td class="num">3 j</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Épopée H — Administrateur</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
+      <tbody>
+        <tr><td>H1</td><td>Administrateur</td><td>En tant qu'administrateur, je veux créer, modifier et désactiver les comptes internes (commercial, comptabilité) afin de gérer les accès au back-office.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>H2</td><td>Administrateur</td><td>En tant qu'administrateur, je veux paramétrer les catégories de produits afin d'organiser le catalogue.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>H3</td><td>Administrateur</td><td>En tant qu'administrateur, je veux paramétrer les modes de livraison disponibles (transporteurs, tarifs, zones UE) afin d'adapter l'offre logistique.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>H4</td><td>Administrateur</td><td>En tant qu'administrateur, je veux gérer les paramètres techniques du site (SEO, informations société) afin de garder le site conforme et à jour.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>H5</td><td>Administrateur</td><td>En tant qu'administrateur, je veux gérer le contenu des pages statiques et des articles d'actualité afin de garder le site vitrine à jour sans intervention développeur.</td><td>Must</td><td class="num">4 j</td></tr>
+        <tr><td>H6</td><td>Administrateur</td><td>En tant qu'administrateur, je veux disposer de toutes les fonctionnalités commerciales et comptables afin de superviser le fonctionnement global du site.</td><td>Must</td><td class="num">2 j</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Épopée I — Sécurité, légal, RGPD</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
+      <tbody>
+        <tr><td>I1</td><td>Visiteur</td><td>En tant que visiteur, je veux être informé et donner mon consentement sur l'usage des cookies afin que mes droits soient respectés (RGPD/CNIL).</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>I2</td><td>Client</td><td>En tant que client, je veux pouvoir demander l'accès, la rectification ou la suppression de mes données personnelles afin d'exercer mes droits RGPD.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>I3</td><td>Administrateur</td><td>En tant qu'administrateur, je veux que les mots de passe et données sensibles soient protégés (hash, HTTPS, sauvegardes) afin de garantir la sécurité des comptes.</td><td>Must</td><td class="num">3 j</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Épopée J — Technique, SEO, performance, éco-conception</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
+      <tbody>
+        <tr><td>J1</td><td>Porteur de projet</td><td>En tant que porteur de projet, je veux que chaque page publique soit optimisée pour le référencement (balises, sitemap, données structurées) afin d'améliorer la visibilité du site.</td><td>Must</td><td class="num">4 j</td></tr>
+        <tr><td>J2</td><td>Porteur de projet</td><td>En tant que porteur de projet, je veux que le site respecte les principes d'éco-conception (poids des pages, images optimisées, sobriété du design) afin de limiter son empreinte environnementale.</td><td>Should</td><td class="num">3 j</td></tr>
+        <tr><td>J3</td><td>Porteur de projet</td><td>En tant que porteur de projet, je veux que le site soit testé sur les principaux navigateurs et tailles d'écran afin de garantir une expérience homogène.</td><td>Must</td><td class="num">3 j</td></tr>
+      </tbody>
+    </table></div>
+
+    <p class="footnote"><strong>39 user stories</strong> — effort brut cumulé ≈ <strong>108 jours-développeur</strong>, base de la répartition des tâches du diagramme de Gantt entre plusieurs ressources en parallèle (cf. §4).</p>
+  </section>
+
+  <!-- ============ 3. KANBAN ============ -->
+  <section id="kanban">
+    <h2>3. Kanban</h2>
+    <p><strong>Outil retenu</strong> : GitHub Projects, directement lié au dépôt de code (chaque carte reliée à une issue et à une pull request) — évite de dupliquer le suivi dans un outil déconnecté du code (cf. §1.6). Alternative équivalente : Trello.</p>
+    <div class="callout">
+      <span class="label">Lien vers la version en ligne</span>
+      <p>À insérer ici après création du tableau sur le compte GitHub de l'organisation (ex. <code>github.com/orgs/la-socketterie/projects/1</code>) — non généré dans ce document car il nécessite un compte réel.</p>
+    </div>
+
+    <h3>Colonnes</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Colonne</th><th>Définition de "prêt à passer à l'étape suivante"</th></tr></thead>
+      <tbody>
+        <tr><td>Backlog</td><td>User story rédigée, priorisée, non encore estimée en détail</td></tr>
+        <tr><td>À faire (sprint)</td><td>User story estimée et affectée à une ressource pour le sprint en cours</td></tr>
+        <tr><td>En cours</td><td>Développement en cours</td></tr>
+        <tr><td>En revue / Tests</td><td>Pull request ouverte : relecture de code + tests fonctionnels en recette</td></tr>
+        <tr><td>Terminé</td><td>Fusionnée sur <code>develop</code>, validée en recette, déployable</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Photo du tableau — exemple à mi-parcours (fin de semaine 6)</h3>
+    <div class="kanban">
+      <div class="kanban-col"><h4>Backlog</h4>
+        <div class="kanban-card">G3 — Export CSV comptabilité</div>
+        <div class="kanban-card">H3 — Modes de livraison</div>
+        <div class="kanban-card">I2 — Droits RGPD</div>
+        <div class="kanban-card">H5 — Contenu statique / actualités</div>
+        <div class="kanban-card">J2 — Éco-conception</div>
+      </div>
+      <div class="kanban-col"><h4>À faire (sprint)</h4>
+        <div class="kanban-card">C6 — Paiement Stripe</div>
+        <div class="kanban-card">C1 — Ajout au panier</div>
+        <div class="kanban-card">B2 — Fiche produit</div>
+        <div class="kanban-card">D3 — Historique commandes</div>
+      </div>
+      <div class="kanban-col"><h4>En cours</h4>
+        <div class="kanban-card">B1 — Catalogue par catégorie</div>
+        <div class="kanban-card">F1 — Gestion des articles</div>
+        <div class="kanban-card">J1 — SEO technique</div>
+      </div>
+      <div class="kanban-col"><h4>En revue / Tests</h4>
+        <div class="kanban-card">D1 — Création de compte</div>
+        <div class="kanban-card">A3 — Formulaire de contact</div>
+      </div>
+      <div class="kanban-col"><h4>Terminé</h4>
+        <div class="kanban-card">A1 — Pages À propos / CGV / Mentions légales</div>
+        <div class="kanban-card">Maquettes UI (Jack/Rose)</div>
+        <div class="kanban-card">Socle technique (repo, CI/CD)</div>
+        <div class="kanban-card">Charte graphique validée</div>
+        <div class="kanban-card">Authentification (squelette API)</div>
+      </div>
+    </div>
+    <p class="footnote">Cette capture illustre l'usage attendu du tableau ; le tableau réel évolue quotidiennement et doit être consulté en ligne pour un état à jour.</p>
+  </section>
+
+  <!-- ============ 4. GANTT ============ -->
+  <section id="gantt">
+    <h2>4. Diagramme de Gantt</h2>
+    <p>Durées exprimées <strong>en jours ouvrés</strong> (week-ends exclus). Démarrage retenu à titre d'exemple : lundi 03/08/2026.</p>
+    <ul>
+      <li><strong>Jalon M1 — "Site présentable"</strong> : jour ouvré ≈59 (~12 semaines), marge de sécurité avant la limite des 3 mois du tournage.</li>
+      <li><strong>Jalon M2 — "Site fonctionnel et testé"</strong> : jour ouvré ≈87 (~17,5 semaines), avant la limite des 4 mois de la diffusion, suivi d'une semaine d'hypercare.</li>
+    </ul>
+
+    <div class="diagram-panel">
+      <pre class="mermaid">
+gantt
+    dateFormat  YYYY-MM-DD
+    excludes    weekends
+    title       Planning La Socketterie — site vitrine + boutique en ligne
+
+    section Cadrage & conception
+    Recueil des besoins & spécifications          :done, spec1, 2026-08-03, 5d
+    Architecture technique & choix outillage      :done, spec2, after spec1, 3d
+    Rédaction user stories & priorisation          :done, spec3, after spec1, 4d
+    Mise en place repo Git / CI-CD / environnements:spec4, after spec2, 3d
+
+    section Conception UX-UI
+    Wireframes & parcours utilisateurs             :ux1, after spec3, 5d
+    Maquettes graphiques haute-fidélité            :ux2, after ux1, 5d
+    Validation des maquettes par le client          :milestone, valid1, after ux2, 0d
+
+    section Développement socle
+    Authentification & gestion des rôles           :dev1, after valid1, 5d
+    Back-office : structure & CMS interne           :dev2, after dev1, 4d
+    Intégration front : gabarits & design system    :dev3, after valid1, 6d
+    Pages publiques (A propos, CGV, contact, actus) :dev4, after dev3, 5d
+    Compte client (création, profil, historique)    :dev8, after dev1, 6d
+
+    section Boutique
+    Catalogue produits & catégories                 :dev5, after dev2, 5d
+    Fiche produit, recherche & filtres              :dev6, after dev5, 4d
+    Panier                                          :dev7, after dev6, 4d
+
+    section Commande & paiement
+    Tunnel de commande & choix livraison            :dev9, after dev7, 4d
+    Intégration Stripe (paiement + webhooks)        :crit, freelance1, after dev9, 5d
+    Emails transactionnels (statuts de commande)    :dev10, after freelance1, 3d
+    Factures & export comptable CSV                 :dev11, after dev10, 3d
+
+    section Jalon tournage
+    Recette intermédiaire & correctifs              :m1prep, after dev11, 3d
+    Site présentable pour le tournage               :milestone, m1, after m1prep, 0d
+
+    section Back-office métier
+    Gestion des commandes (équipe commerciale)      :dev12, after m1, 4d
+    Gestion des comptes internes (admin)            :dev13, after dev12, 3d
+    Paramétrage catégories & livraisons (admin)     :dev14, after dev13, 2d
+    Gestion du contenu statique (admin)             :dev15, after dev14, 3d
+
+    section Sécurité, légal, SEO, éco-conception
+    Consentement cookies & droits RGPD              :dev16, after dev15, 2d
+    Audit sécurité & durcissement                   :crit, freelance2, after dev16, 4d
+    SEO technique & données structurées              :dev17, after dev16, 3d
+    Optimisation éco-conception & performance       :dev18, after dev17, 2d
+
+    section Recette & mise en production
+    Tests fonctionnels multi-supports (UAT client)  :rec1, after dev18, 4d
+    Correction des anomalies                        :rec2, after rec1, 2d
+    Formation commercial / comptabilité / admin     :rec3, after rec2, 2d
+    Mise en production                              :rec4, after rec3, 1d
+    Site fonctionnel avant diffusion                :milestone, m2, after rec4, 0d
+
+    section Hypercare
+    Surveillance renforcée post-lancement           :hyper1, after rec4, 5d
+      </pre>
+    </div>
+
+    <h3>Répartition des ressources par lot</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Lot</th><th>Ressource principale</th><th>Appui</th></tr></thead>
+      <tbody>
+        <tr><td>Cadrage &amp; conception</td><td>Moi (full-stack, pilotage)</td><td>Directeur (validations à distance)</td></tr>
+        <tr><td>UX/UI</td><td>Jack, Rose</td><td>Directeur (validation client)</td></tr>
+        <tr><td>Développement socle</td><td>Jonathan (back), David (front)</td><td>Moi (architecture, revue de code)</td></tr>
+        <tr><td>Boutique</td><td>David (front), Jonathan (back)</td><td>Moi</td></tr>
+        <tr><td>Commande &amp; paiement</td><td>Moi + <strong>Omar</strong> (freelance, 5 j max) sur Stripe</td><td>Jonathan</td></tr>
+        <tr><td>Back-office métier</td><td>Jonathan (back), David (front)</td><td>Moi</td></tr>
+        <tr><td>Sécurité / SEO / éco-conception</td><td>Moi + <strong>Fred</strong> (freelance, 5 j max) sur l'audit sécurité</td><td>Jonathan, David</td></tr>
+        <tr><td>Recette &amp; mise en production</td><td>Toute l'équipe</td><td>Directeur (recette client / UAT)</td></tr>
+        <tr><td>Hypercare</td><td>Moi, Jonathan</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+    <p class="footnote">Le Lead Developer, absent les 3 premières semaines, intervient en revue d'architecture et validation ponctuelle à son retour (transverse, non représenté comme une ligne dédiée du planning).</p>
+  </section>
+
+  <!-- ============ 5. ESTIMATION DU COÛT ============ -->
+  <section id="couts">
+    <h2>5. Estimation du coût</h2>
+    <p class="lede">Tous les montants sont exprimés hors taxes (HT).</p>
+
+    <h3>5.1 Méthodologie</h3>
+    <p>La comptabilité n'étant pas disponible pour ce chiffrage, les rémunérations de référence sont issues des données publiques <a href="https://fr.indeed.com/career/salaries" target="_blank" rel="noopener">Indeed.fr</a> (salaires moyens observés en France, juillet 2026). Un <strong>Taux Journalier Moyen (TJM) chargé</strong> est calculé ainsi :</p>
+    <p class="mono" style="display:block; padding: 10px 14px;">TJM chargé = (salaire brut annuel de référence ÷ 218 jours travaillés/an) × coefficient de charges patronales</p>
+    <p>Coefficient retenu : <strong>1,45</strong> pour les salariés classiques, <strong>1,10</strong> pour les alternants (exonérations de charges liées au contrat d'apprentissage). Pour les freelances, le TJM de marché est utilisé directement, dans la limite contractuelle de 5 jours chacun.</p>
+
+    <h3>5.2 Coût des ressources humaines</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Ressource</th><th>Profil</th><th>Référence annuelle</th><th class="num">TJM chargé</th><th class="num">Jours</th><th class="num">Coût total</th></tr></thead>
+      <tbody>
+        <tr><td>Moi-même</td><td>Développeur full-stack (pilotage)</td><td class="num">45 036 €</td><td class="num">300 €</td><td class="num">90 j</td><td class="num">27 000 €</td></tr>
+        <tr><td>Lead Developer</td><td>Développeur senior (arbitrages)</td><td class="num">≈50 000 €</td><td class="num">330 €</td><td class="num">10 j</td><td class="num">3 300 €</td></tr>
+        <tr><td>David</td><td>Alternant front-end (80 %)</td><td class="num">17 244 €</td><td class="num">90 €</td><td class="num">60 j</td><td class="num">5 400 €</td></tr>
+        <tr><td>Jonathan</td><td>Alternant back-end (80 %)</td><td class="num">17 244 €</td><td class="num">90 €</td><td class="num">56 j</td><td class="num">5 040 €</td></tr>
+        <tr><td>Jack</td><td>UI/UX designer</td><td class="num">46 691 €</td><td class="num">305 €</td><td class="num">12 j</td><td class="num">3 660 €</td></tr>
+        <tr><td>Rose</td><td>UI/UX designer</td><td class="num">46 691 €</td><td class="num">305 €</td><td class="num">12 j</td><td class="num">3 660 €</td></tr>
+        <tr><td>Omar</td><td>Freelance dév. (Stripe)</td><td class="num">TJM marché</td><td class="num">530 €</td><td class="num">5 j</td><td class="num">2 650 €</td></tr>
+        <tr><td>Fred</td><td>Freelance dév. (audit sécu.)</td><td class="num">TJM marché</td><td class="num">530 €</td><td class="num">5 j</td><td class="num">2 650 €</td></tr>
+        <tr><td>Directeur</td><td>Validations, relation client</td><td class="num">≈100 884 €</td><td class="num">670 €</td><td class="num">6 j</td><td class="num">4 020 €</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="4">Sous-total ressources humaines</td><td class="num">257 j</td><td class="num">57 380 €</td></tr></tfoot>
+    </table></div>
+
+    <h3>5.3 Coûts techniques (première année)</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Poste</th><th>Détail</th><th class="num">Coût annuel</th></tr></thead>
+      <tbody>
+        <tr><td>Noms de domaine</td><td><code>lasocketterie.fr</code> + <code>.com</code> (défensif)</td><td class="num">35 €</td></tr>
+        <tr><td>Hébergement</td><td>Serveur + base managée + staging, stockage objet + CDN</td><td class="num">1 450 €</td></tr>
+        <tr><td>Email transactionnel</td><td>Brevo</td><td class="num">240 €</td></tr>
+        <tr><td>Supervision</td><td>Sentry</td><td class="num">312 €</td></tr>
+        <tr><td>Outillage design</td><td>Figma (durée du projet)</td><td class="num">120 €</td></tr>
+        <tr><td>Licence police de caractères</td><td>Licence commerciale Stadio Now Display (cf. §1.7)</td><td class="num">100 €</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">Sous-total technique</td><td class="num">2 257 €</td></tr></tfoot>
+    </table></div>
+    <p class="footnote">Non inclus car variable et proportionnel au chiffre d'affaires : la commission Stripe (≈1,5 % + 0,25 € par transaction carte européenne).</p>
+
+    <h3>5.4 Contrat de maintenance (TMA)</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Poste</th><th>Détail</th><th class="num">Coût annuel</th></tr></thead>
+      <tbody>
+        <tr><td>Forfait maintenance</td><td>8h/mois incluses (corrective + sécurité + supervision), au-delà TJM 350 €/j</td><td class="num">3 600 €</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>5.5 Synthèse</h3>
+    <div class="table-wrap"><table>
+      <tbody>
+        <tr><td>Ressources humaines (développement)</td><td class="num">57 380 €</td></tr>
+        <tr><td>Coûts techniques (1ère année)</td><td class="num">2 257 €</td></tr>
+        <tr><td>Contrat de maintenance (1ère année)</td><td class="num">3 600 €</td></tr>
+        <tr><td>Sous-total</td><td class="num">63 237 €</td></tr>
+        <tr><td>Marge pour aléas (10 %)</td><td class="num">6 324 €</td></tr>
+      </tbody>
+    </table></div>
+    <div class="total-banner">
+      <span>Total estimé — 1ère année, HT</span>
+      <span class="amount">≈ 69 600 €</span>
+    </div>
+
+    <h3>5.6 Sources</h3>
+    <ul class="footnote">
+      <li><a href="https://fr.indeed.com/career/d%C3%A9veloppeur-full-stack/salaries" target="_blank" rel="noopener">Salaire développeur full stack — Indeed.fr</a></li>
+      <li><a href="https://fr.indeed.com/career/ui%2Fux-designer/salaries?hl=fr" target="_blank" rel="noopener">Salaire UI/UX designer — Indeed.fr</a></li>
+      <li><a href="https://fr.indeed.com/career/apprenti-d%C3%A9veloppeur/salaries" target="_blank" rel="noopener">Salaire apprenti développeur — Indeed.fr</a></li>
+      <li><a href="https://freelancemention.fr/blog/tjm-freelance-developpeur-fullstack/" target="_blank" rel="noopener">TJM freelance développeur fullstack 2026 — FreelanceMention</a></li>
+      <li><a href="https://fr.indeed.com/conseils-carrieres/remuneration-salaire/combien-gagne-chef-entreprise" target="_blank" rel="noopener">Salaire chef d'entreprise / directeur de PME — Indeed.fr</a></li>
+    </ul>
+  </section>
+
+  <hr class="section-end">
+  <p class="footnote">Document rédigé dans le cadre de la planification du développement du site La Socketterie — à exporter en PDF pour remise du livrable.</p>
+</div>
