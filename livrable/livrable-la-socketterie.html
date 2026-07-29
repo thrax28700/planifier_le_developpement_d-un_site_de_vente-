@@ -1,52 +1,52 @@
 <title>La Socketterie — Planification du développement du site</title>
 <style>
   :root {
-    --paper: #FBF8F4;
+    /* Couleurs exactes de la charte La Socketterie, utilisées telles quelles en surface (jamais assombries) */
+    --brand-teal: #77B099;
+    --brand-coral: #F5895D;
+    --brand-orange: #F6A447;
+    --brand-peach: #F9DACD;
+    --ink-on-brand: #2B2420; /* texte foncé posé sur les aplats de couleur ci-dessus : le seul moyen de garder ces teintes pastel telles quelles tout en restant lisible (AA) */
+
+    --paper: #FBF8F3;
     --paper-raised: #FFFFFF;
-    --ink: #22302B;
-    --ink-soft: #56655F;
-    --accent-teal: #3E7E6D;
-    --accent-coral: #C85A36;
-    --accent-orange: #B4740F;
-    --teal-tint: #E4EEE9;
-    --coral-tint: #FBEAE1;
-    --orange-tint: #FCEFDB;
-    --border: #DBE1D8;
-    --thead-bg: #3E7E6D;
-    --thead-fg: #FFFFFF;
-    --code-bg: #F1EEE7;
-    --shadow: 0 1px 2px rgba(34,48,43,.06), 0 8px 24px rgba(34,48,43,.05);
+    --ink: #2B2420;
+    --ink-soft: #6E635A;
+    --link: #C4552E; /* dérivé texte du corail — le corail brut échoue au contraste AA en texte sur fond clair */
+    --teal-tint: #EAF3EF;
+    --coral-tint: #FDEEE6;
+    --orange-tint: #FEF3E3;
+    --border: #E8DCCF;
+    --thead-bg: var(--brand-teal);
+    --thead-fg: var(--ink-on-brand);
+    --code-bg: #F2ECE3;
+    --shadow: 0 1px 2px rgba(43,36,32,.07), 0 8px 24px rgba(43,36,32,.06);
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --paper: #16211D;
-      --paper-raised: #1D2C26;
-      --ink: #ECE7DF;
-      --ink-soft: #AEBBB2;
-      --accent-teal: #8BCAB4;
-      --accent-coral: #F0916A;
-      --accent-orange: #F0B15C;
-      --teal-tint: #21332C;
-      --coral-tint: #2E2119;
-      --orange-tint: #2E2716;
-      --border: #33433C;
-      --thead-bg: #2A3D37;
-      --thead-fg: #EFE9E0;
-      --code-bg: #10201A;
-      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+      --paper: #1E1912;
+      --paper-raised: #271F17;
+      --ink: #F2E9DE;
+      --ink-soft: #BDAE9F;
+      --link: #F5895D; /* sur fond sombre, le corail brut passe largement le contraste, pas besoin de le foncer */
+      --teal-tint: #223028;
+      --coral-tint: #33241A;
+      --orange-tint: #33291A;
+      --border: #3E3427;
+      --thead-fg: #2B2420;
+      --code-bg: #17130E;
+      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.4);
     }
   }
   :root[data-theme="dark"] {
-    --paper: #16211D; --paper-raised: #1D2C26; --ink: #ECE7DF; --ink-soft: #AEBBB2;
-    --accent-teal: #8BCAB4; --accent-coral: #F0916A; --accent-orange: #F0B15C;
-    --teal-tint: #21332C; --coral-tint: #2E2119; --orange-tint: #2E2716;
-    --border: #33433C; --thead-bg: #2A3D37; --thead-fg: #EFE9E0; --code-bg: #10201A;
+    --paper: #1E1912; --paper-raised: #271F17; --ink: #F2E9DE; --ink-soft: #BDAE9F;
+    --link: #F5895D; --teal-tint: #223028; --coral-tint: #33241A; --orange-tint: #33291A;
+    --border: #3E3427; --thead-fg: #2B2420; --code-bg: #17130E;
   }
   :root[data-theme="light"] {
-    --paper: #FBF8F4; --paper-raised: #FFFFFF; --ink: #22302B; --ink-soft: #56655F;
-    --accent-teal: #3E7E6D; --accent-coral: #C85A36; --accent-orange: #B4740F;
-    --teal-tint: #E4EEE9; --coral-tint: #FBEAE1; --orange-tint: #FCEFDB;
-    --border: #DBE1D8; --thead-bg: #3E7E6D; --thead-fg: #FFFFFF; --code-bg: #F1EEE7;
+    --paper: #FBF8F3; --paper-raised: #FFFFFF; --ink: #2B2420; --ink-soft: #6E635A;
+    --link: #C4552E; --teal-tint: #EAF3EF; --coral-tint: #FDEEE6; --orange-tint: #FEF3E3;
+    --border: #E8DCCF; --thead-fg: #2B2420; --code-bg: #F2ECE3;
   }
 
   * { box-sizing: border-box; }
@@ -76,7 +76,7 @@
     padding-top: 1.1rem;
     border-top: 2px solid var(--border);
   }
-  h3 { font-size: 1.15rem; margin-top: 2rem; color: var(--accent-teal); }
+  h3 { font-size: 1.15rem; margin-top: 2rem; color: var(--link); }
   p { max-width: 68ch; color: var(--ink); }
   .lede { color: var(--ink-soft); max-width: 62ch; }
 
@@ -125,7 +125,7 @@
   nav.toc p { margin: 0 0 10px; font-weight: 600; }
   nav.toc ol { margin: 0; padding-left: 1.2em; columns: 2; column-gap: 32px; }
   nav.toc li { margin-bottom: 6px; break-inside: avoid; }
-  nav.toc a { color: var(--accent-teal); text-decoration: none; }
+  nav.toc a { color: var(--link); text-decoration: none; }
   nav.toc a:hover, nav.toc a:focus-visible { text-decoration: underline; }
 
   /* ---- Tables ---- */
@@ -139,9 +139,10 @@
   tfoot td { font-weight: 700; border-top: 2px solid var(--border); background: var(--teal-tint); }
 
   /* ---- Callouts ---- */
-  .callout { border-left: 4px solid var(--accent-teal); background: var(--teal-tint); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
-  .callout.warn { border-color: var(--accent-orange); background: var(--orange-tint); }
-  .callout.flag { border-color: var(--accent-coral); background: var(--coral-tint); }
+  .callout { border-left: 4px solid var(--brand-teal); background: var(--teal-tint); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+  .callout.warn { border-color: var(--brand-orange); background: var(--orange-tint); }
+  .callout.flag { border-color: var(--brand-coral); background: var(--coral-tint); }
+  .callout.risk { border-color: var(--brand-orange); background: var(--orange-tint); }
   .callout p { margin: 0; max-width: none; }
   .callout .label { font-weight: 700; text-transform: uppercase; font-size: .75rem; letter-spacing: .06em; display: block; margin-bottom: 4px; }
 
@@ -158,11 +159,11 @@
 
   /* ---- Misc ---- */
   code, .mono { font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, monospace; font-size: .88em; background: var(--code-bg); padding: .12em .4em; border-radius: 4px; }
-  a { color: var(--accent-teal); }
+  a { color: var(--link); }
   .footnote { font-size: .85rem; color: var(--ink-soft); }
   hr.section-end { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
-  .total-banner { display: flex; justify-content: space-between; align-items: baseline; background: var(--teal-tint); border-radius: 10px; padding: 18px 24px; margin: 1.4rem 0; }
-  .total-banner .amount { font-family: Charter, Georgia, serif; font-size: 1.8rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .total-banner { display: flex; justify-content: space-between; align-items: baseline; background: var(--coral-tint); border-radius: 10px; padding: 18px 24px; margin: 1.4rem 0; }
+  .total-banner .amount { font-family: Charter, Georgia, serif; font-size: 1.8rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--link); }
 
   @media print {
     body { background: #fff; }
@@ -304,6 +305,13 @@
       <span class="label">Point de vigilance</span>
       <p>La police du logo (Stadio Now Display) a été trouvée sous forme de <strong>version d'essai</strong> sur un site tiers. Avant mise en production, vérifier et acquérir une licence commerciale en règle auprès de la fonderie éditrice, faute de quoi l'utilisation du logo sur un site marchand exposerait le client à un risque juridique (budgété en §5, à remonter au directeur dès son retour).</p>
     </div>
+
+    <h3>1.9 Risques projet</h3>
+    <p>Le directeur de La Socketterie entretient une relation personnelle avec notre directeur (parties de golf régulières, épouses amies d'enfance). Cette proximité est un atout pour la relation commerciale, mais elle représente aussi un risque de gouvernance de projet : elle peut faciliter des demandes informelles transmises hors du circuit officiel (directement entre directeurs, en dehors du backlog), avec un risque de dérive du périmètre ou de pression à traiter en urgence une demande non priorisée, au détriment du planning validé.</p>
+    <div class="callout risk">
+      <span class="label">Mesure de mitigation</span>
+      <p>Toute demande du client, quel que soit le canal par lequel elle arrive (y compris directement au directeur), doit être formalisée en user story, ajoutée au backlog et priorisée selon le même processus que les autres demandes avant d'être engagée. Ceci protège à la fois le respect des échéances (tournage / diffusion) et la qualité du livrable, et évite d'exposer la relation personnelle entre les deux directeurs à un différend professionnel.</p>
+    </div>
   </section>
 
   <!-- ============ 2. USER STORIES ============ -->
@@ -311,115 +319,51 @@
     <h2>2. User stories</h2>
     <p class="lede">Priorité MoSCoW : <strong>Must</strong> (indispensable), <strong>Should</strong> (important), <strong>Could</strong> (souhaitable). Estimation en jours-développeur.</p>
 
-    <h3>Épopée A — Pages publiques &amp; contenu</h3>
     <div class="table-wrap"><table>
-      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
+      <thead><tr><th>ID</th><th>Épopée</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
       <tbody>
-        <tr><td>A1</td><td>Visiteur</td><td>En tant que visiteur, je veux consulter les pages À propos, CGV et Mentions légales afin de connaître l'entreprise et ses conditions.</td><td>Must</td><td class="num">2 j</td></tr>
-        <tr><td>A2</td><td>Visiteur</td><td>En tant que visiteur, je veux consulter les articles d'actualité de la marque afin de suivre sa vie et son actualité.</td><td>Should</td><td class="num">3 j</td></tr>
-        <tr><td>A3</td><td>Visiteur</td><td>En tant que visiteur, je veux utiliser un formulaire de contact afin de poser une question à l'entreprise.</td><td>Must</td><td class="num">2 j</td></tr>
-        <tr><td>A4</td><td>Visiteur</td><td>En tant que visiteur, je veux naviguer sur le site depuis mon mobile, ma tablette ou mon ordinateur afin d'avoir une expérience adaptée à mon support.</td><td>Must</td><td class="num">5 j</td></tr>
-        <tr><td>A5</td><td>Porteur de projet</td><td>En tant que porteur de projet, je veux que le site soit bien référencé sur les moteurs de recherche afin que les visiteurs découvrent la marque.</td><td>Must</td><td class="num">4 j</td></tr>
-      </tbody>
-    </table></div>
-
-    <h3>Épopée B — Boutique / Catalogue</h3>
-    <div class="table-wrap"><table>
-      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
-      <tbody>
-        <tr><td>B1</td><td>Visiteur</td><td>En tant que visiteur, je veux parcourir le catalogue par catégorie afin de trouver facilement un produit.</td><td>Must</td><td class="num">5 j</td></tr>
-        <tr><td>B2</td><td>Visiteur</td><td>En tant que visiteur, je veux consulter la fiche détaillée d'un produit (photos, tailles, prix, description) afin de décider de l'achat.</td><td>Must</td><td class="num">4 j</td></tr>
-        <tr><td>B3</td><td>Visiteur</td><td>En tant que visiteur, je veux rechercher un produit par mot-clé afin de gagner du temps.</td><td>Should</td><td class="num">3 j</td></tr>
-        <tr><td>B4</td><td>Visiteur</td><td>En tant que visiteur, je veux filtrer les produits par taille, couleur ou prix afin d'affiner ma recherche.</td><td>Should</td><td class="num">3 j</td></tr>
-      </tbody>
-    </table></div>
-
-    <h3>Épopée C — Panier &amp; commande</h3>
-    <div class="table-wrap"><table>
-      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
-      <tbody>
-        <tr><td>C1</td><td>Visiteur</td><td>En tant que visiteur, je veux ajouter un ou plusieurs articles à mon panier afin de préparer ma commande.</td><td>Must</td><td class="num">3 j</td></tr>
-        <tr><td>C2</td><td>Visiteur</td><td>En tant que visiteur, je veux modifier les quantités ou retirer un article de mon panier afin d'ajuster ma commande.</td><td>Must</td><td class="num">2 j</td></tr>
-        <tr><td>C3</td><td>Visiteur</td><td>En tant que visiteur, je veux voir le récapitulatif de mon panier (sous-total, livraison, total) afin de connaître le montant exact à payer.</td><td>Must</td><td class="num">2 j</td></tr>
-        <tr><td>C4</td><td>Visiteur</td><td>En tant que visiteur, je dois créer un compte ou me connecter afin de pouvoir valider ma commande.</td><td>Must</td><td class="num">3 j</td></tr>
-        <tr><td>C5</td><td>Client connecté</td><td>En tant que client connecté, je veux choisir un mode de livraison parmi ceux proposés afin d'adapter la livraison à mes besoins.</td><td>Must</td><td class="num">2 j</td></tr>
-        <tr><td>C6</td><td>Client connecté</td><td>En tant que client connecté, je veux payer ma commande par carte bancaire via Stripe afin de la finaliser en toute sécurité.</td><td>Must</td><td class="num">5 j</td></tr>
-        <tr><td>C7</td><td>Client connecté (UE)</td><td>En tant que client résidant dans l'Union européenne, je veux pouvoir commander où que je sois en UE afin d'accéder à la boutique depuis mon pays.</td><td>Must</td><td class="num">3 j</td></tr>
-      </tbody>
-    </table></div>
-
-    <h3>Épopée D — Compte client</h3>
-    <div class="table-wrap"><table>
-      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
-      <tbody>
-        <tr><td>D1</td><td>Visiteur</td><td>En tant que visiteur, je veux créer un compte avec mon email et un mot de passe afin d'accéder aux fonctionnalités réservées aux clients.</td><td>Must</td><td class="num">3 j</td></tr>
-        <tr><td>D2</td><td>Client connecté</td><td>En tant que client connecté, je veux modifier mes informations personnelles (adresse, email, mot de passe) afin de les maintenir à jour.</td><td>Must</td><td class="num">2 j</td></tr>
-        <tr><td>D3</td><td>Client connecté</td><td>En tant que client connecté, je veux consulter l'historique de mes commandes afin de suivre mes achats passés.</td><td>Must</td><td class="num">3 j</td></tr>
-        <tr><td>D4</td><td>Client connecté</td><td>En tant que client connecté, je veux télécharger mes factures afin de les conserver.</td><td>Must</td><td class="num">2 j</td></tr>
-        <tr><td>D5</td><td>Client</td><td>En tant que client, je veux réinitialiser mon mot de passe en cas d'oubli afin de retrouver l'accès à mon compte.</td><td>Must</td><td class="num">2 j</td></tr>
-      </tbody>
-    </table></div>
-
-    <h3>Épopée E — Notifications</h3>
-    <div class="table-wrap"><table>
-      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
-      <tbody>
-        <tr><td>E1</td><td>Client</td><td>En tant que client, je veux recevoir un email à chaque changement de statut de ma commande (validée, payée, en préparation, expédiée) afin de suivre son avancement.</td><td>Must</td><td class="num">3 j</td></tr>
-      </tbody>
-    </table></div>
-
-    <h3>Épopée F — Back-office Équipe commerciale</h3>
-    <div class="table-wrap"><table>
-      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
-      <tbody>
-        <tr><td>F1</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux créer, modifier et publier un article de la boutique afin de tenir le catalogue à jour.</td><td>Must</td><td class="num">5 j</td></tr>
-        <tr><td>F2</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux consulter la liste des commandes et leur statut afin de suivre l'activité de la boutique.</td><td>Must</td><td class="num">3 j</td></tr>
-        <tr><td>F3</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux éditer les informations d'une commande validée afin de les transmettre à la logistique pour colisage et étiquetage.</td><td>Must</td><td class="num">3 j</td></tr>
-        <tr><td>F4</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux marquer une commande comme expédiée une fois informé par la logistique afin de déclencher l'email de suivi au client.</td><td>Must</td><td class="num">2 j</td></tr>
-        <tr><td>F5</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux consulter et gérer la fiche d'un client afin de répondre à ses demandes.</td><td>Should</td><td class="num">3 j</td></tr>
-      </tbody>
-    </table></div>
-
-    <h3>Épopée G — Back-office Comptabilité</h3>
-    <div class="table-wrap"><table>
-      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
-      <tbody>
-        <tr><td>G1</td><td>Comptabilité</td><td>En tant que membre de la comptabilité, je veux consulter la liste des commandes et factures afin de suivre l'activité financière.</td><td>Must</td><td class="num">2 j</td></tr>
-        <tr><td>G2</td><td>Comptabilité</td><td>En tant que membre de la comptabilité, je veux modifier une facture afin de corriger une erreur avant export.</td><td>Should</td><td class="num">2 j</td></tr>
-        <tr><td>G3</td><td>Comptabilité</td><td>En tant que membre de la comptabilité, je veux exporter les commandes/factures au format CSV sur une période donnée afin de les intégrer dans le logiciel comptable.</td><td>Must</td><td class="num">3 j</td></tr>
-      </tbody>
-    </table></div>
-
-    <h3>Épopée H — Administrateur</h3>
-    <div class="table-wrap"><table>
-      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
-      <tbody>
-        <tr><td>H1</td><td>Administrateur</td><td>En tant qu'administrateur, je veux créer, modifier et désactiver les comptes internes (commercial, comptabilité) afin de gérer les accès au back-office.</td><td>Must</td><td class="num">3 j</td></tr>
-        <tr><td>H2</td><td>Administrateur</td><td>En tant qu'administrateur, je veux paramétrer les catégories de produits afin d'organiser le catalogue.</td><td>Must</td><td class="num">2 j</td></tr>
-        <tr><td>H3</td><td>Administrateur</td><td>En tant qu'administrateur, je veux paramétrer les modes de livraison disponibles (transporteurs, tarifs, zones UE) afin d'adapter l'offre logistique.</td><td>Must</td><td class="num">3 j</td></tr>
-        <tr><td>H4</td><td>Administrateur</td><td>En tant qu'administrateur, je veux gérer les paramètres techniques du site (SEO, informations société) afin de garder le site conforme et à jour.</td><td>Must</td><td class="num">3 j</td></tr>
-        <tr><td>H5</td><td>Administrateur</td><td>En tant qu'administrateur, je veux gérer le contenu des pages statiques et des articles d'actualité afin de garder le site vitrine à jour sans intervention développeur.</td><td>Must</td><td class="num">4 j</td></tr>
-        <tr><td>H6</td><td>Administrateur</td><td>En tant qu'administrateur, je veux disposer de toutes les fonctionnalités commerciales et comptables afin de superviser le fonctionnement global du site.</td><td>Must</td><td class="num">2 j</td></tr>
-      </tbody>
-    </table></div>
-
-    <h3>Épopée I — Sécurité, légal, RGPD</h3>
-    <div class="table-wrap"><table>
-      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
-      <tbody>
-        <tr><td>I1</td><td>Visiteur</td><td>En tant que visiteur, je veux être informé et donner mon consentement sur l'usage des cookies afin que mes droits soient respectés (RGPD/CNIL).</td><td>Must</td><td class="num">2 j</td></tr>
-        <tr><td>I2</td><td>Client</td><td>En tant que client, je veux pouvoir demander l'accès, la rectification ou la suppression de mes données personnelles afin d'exercer mes droits RGPD.</td><td>Must</td><td class="num">3 j</td></tr>
-        <tr><td>I3</td><td>Administrateur</td><td>En tant qu'administrateur, je veux que les mots de passe et données sensibles soient protégés (hash, HTTPS, sauvegardes) afin de garantir la sécurité des comptes.</td><td>Must</td><td class="num">3 j</td></tr>
-      </tbody>
-    </table></div>
-
-    <h3>Épopée J — Technique, SEO, performance, éco-conception</h3>
-    <div class="table-wrap"><table>
-      <thead><tr><th>ID</th><th>Rôle</th><th>User story</th><th>Priorité</th><th class="num">Est.</th></tr></thead>
-      <tbody>
-        <tr><td>J1</td><td>Porteur de projet</td><td>En tant que porteur de projet, je veux que chaque page publique soit optimisée pour le référencement (balises, sitemap, données structurées) afin d'améliorer la visibilité du site.</td><td>Must</td><td class="num">4 j</td></tr>
-        <tr><td>J2</td><td>Porteur de projet</td><td>En tant que porteur de projet, je veux que le site respecte les principes d'éco-conception (poids des pages, images optimisées, sobriété du design) afin de limiter son empreinte environnementale.</td><td>Should</td><td class="num">3 j</td></tr>
-        <tr><td>J3</td><td>Porteur de projet</td><td>En tant que porteur de projet, je veux que le site soit testé sur les principaux navigateurs et tailles d'écran afin de garantir une expérience homogène.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>A1</td><td>Pages publiques &amp; contenu</td><td>Visiteur</td><td>En tant que visiteur, je veux consulter les pages À propos, CGV et Mentions légales afin de connaître l'entreprise et ses conditions.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>A2</td><td>Pages publiques &amp; contenu</td><td>Visiteur</td><td>En tant que visiteur, je veux consulter les articles d'actualité de la marque afin de suivre sa vie et son actualité.</td><td>Should</td><td class="num">3 j</td></tr>
+        <tr><td>A3</td><td>Pages publiques &amp; contenu</td><td>Visiteur</td><td>En tant que visiteur, je veux utiliser un formulaire de contact afin de poser une question à l'entreprise.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>A4</td><td>Pages publiques &amp; contenu</td><td>Visiteur</td><td>En tant que visiteur, je veux naviguer sur le site depuis mon mobile, ma tablette ou mon ordinateur afin d'avoir une expérience adaptée à mon support.</td><td>Must</td><td class="num">5 j</td></tr>
+        <tr><td>A5</td><td>Pages publiques &amp; contenu</td><td>Porteur de projet</td><td>En tant que porteur de projet, je veux que le site soit bien référencé sur les moteurs de recherche afin que les visiteurs découvrent la marque.</td><td>Must</td><td class="num">4 j</td></tr>
+        <tr><td>B1</td><td>Boutique / Catalogue</td><td>Visiteur</td><td>En tant que visiteur, je veux parcourir le catalogue par catégorie afin de trouver facilement un produit.</td><td>Must</td><td class="num">5 j</td></tr>
+        <tr><td>B2</td><td>Boutique / Catalogue</td><td>Visiteur</td><td>En tant que visiteur, je veux consulter la fiche détaillée d'un produit (photos, tailles, prix, description) afin de décider de l'achat.</td><td>Must</td><td class="num">4 j</td></tr>
+        <tr><td>B3</td><td>Boutique / Catalogue</td><td>Visiteur</td><td>En tant que visiteur, je veux rechercher un produit par mot-clé afin de gagner du temps.</td><td>Should</td><td class="num">3 j</td></tr>
+        <tr><td>B4</td><td>Boutique / Catalogue</td><td>Visiteur</td><td>En tant que visiteur, je veux filtrer les produits par taille, couleur ou prix afin d'affiner ma recherche.</td><td>Should</td><td class="num">3 j</td></tr>
+        <tr><td>C1</td><td>Panier &amp; commande</td><td>Visiteur</td><td>En tant que visiteur, je veux ajouter un ou plusieurs articles à mon panier afin de préparer ma commande.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>C2</td><td>Panier &amp; commande</td><td>Visiteur</td><td>En tant que visiteur, je veux modifier les quantités ou retirer un article de mon panier afin d'ajuster ma commande.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>C3</td><td>Panier &amp; commande</td><td>Visiteur</td><td>En tant que visiteur, je veux voir le récapitulatif de mon panier (sous-total, livraison, total) afin de connaître le montant exact à payer.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>C4</td><td>Panier &amp; commande</td><td>Visiteur</td><td>En tant que visiteur, je dois créer un compte ou me connecter afin de pouvoir valider ma commande.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>C5</td><td>Panier &amp; commande</td><td>Client connecté</td><td>En tant que client connecté, je veux choisir un mode de livraison parmi ceux proposés afin d'adapter la livraison à mes besoins.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>C6</td><td>Panier &amp; commande</td><td>Client connecté</td><td>En tant que client connecté, je veux payer ma commande par carte bancaire via Stripe afin de la finaliser en toute sécurité.</td><td>Must</td><td class="num">5 j</td></tr>
+        <tr><td>C7</td><td>Panier &amp; commande</td><td>Client connecté (UE)</td><td>En tant que client résidant dans l'Union européenne, je veux pouvoir commander où que je sois en UE afin d'accéder à la boutique depuis mon pays.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>D1</td><td>Compte client</td><td>Visiteur</td><td>En tant que visiteur, je veux créer un compte avec mon email et un mot de passe afin d'accéder aux fonctionnalités réservées aux clients.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>D2</td><td>Compte client</td><td>Client connecté</td><td>En tant que client connecté, je veux modifier mes informations personnelles (adresse, email, mot de passe) afin de les maintenir à jour.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>D3</td><td>Compte client</td><td>Client connecté</td><td>En tant que client connecté, je veux consulter l'historique de mes commandes afin de suivre mes achats passés.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>D4</td><td>Compte client</td><td>Client connecté</td><td>En tant que client connecté, je veux télécharger mes factures afin de les conserver.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>D5</td><td>Compte client</td><td>Client</td><td>En tant que client, je veux réinitialiser mon mot de passe en cas d'oubli afin de retrouver l'accès à mon compte.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>E1</td><td>Notifications</td><td>Client</td><td>En tant que client, je veux recevoir un email à chaque changement de statut de ma commande (validée, payée, en préparation, expédiée) afin de suivre son avancement.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>F1</td><td>Back-office commercial</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux créer, modifier et publier un article de la boutique afin de tenir le catalogue à jour.</td><td>Must</td><td class="num">5 j</td></tr>
+        <tr><td>F2</td><td>Back-office commercial</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux consulter la liste des commandes et leur statut afin de suivre l'activité de la boutique.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>F3</td><td>Back-office commercial</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux éditer les informations d'une commande validée afin de les transmettre à la logistique pour colisage et étiquetage.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>F4</td><td>Back-office commercial</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux marquer une commande comme expédiée une fois informé par la logistique afin de déclencher l'email de suivi au client.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>F5</td><td>Back-office commercial</td><td>Équipe commerciale</td><td>En tant que membre de l'équipe commerciale, je veux consulter et gérer la fiche d'un client afin de répondre à ses demandes.</td><td>Should</td><td class="num">3 j</td></tr>
+        <tr><td>G1</td><td>Back-office comptabilité</td><td>Comptabilité</td><td>En tant que membre de la comptabilité, je veux consulter la liste des commandes et factures afin de suivre l'activité financière.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>G2</td><td>Back-office comptabilité</td><td>Comptabilité</td><td>En tant que membre de la comptabilité, je veux modifier une facture afin de corriger une erreur avant export.</td><td>Should</td><td class="num">2 j</td></tr>
+        <tr><td>G3</td><td>Back-office comptabilité</td><td>Comptabilité</td><td>En tant que membre de la comptabilité, je veux exporter les commandes/factures au format CSV sur une période donnée afin de les intégrer dans le logiciel comptable.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>H1</td><td>Administrateur</td><td>Administrateur</td><td>En tant qu'administrateur, je veux créer, modifier et désactiver les comptes internes (commercial, comptabilité) afin de gérer les accès au back-office.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>H2</td><td>Administrateur</td><td>Administrateur</td><td>En tant qu'administrateur, je veux paramétrer les catégories de produits afin d'organiser le catalogue.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>H3</td><td>Administrateur</td><td>Administrateur</td><td>En tant qu'administrateur, je veux paramétrer les modes de livraison disponibles (transporteurs, tarifs, zones UE) afin d'adapter l'offre logistique.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>H4</td><td>Administrateur</td><td>Administrateur</td><td>En tant qu'administrateur, je veux gérer les paramètres techniques du site (SEO, informations société) afin de garder le site conforme et à jour.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>H5</td><td>Administrateur</td><td>Administrateur</td><td>En tant qu'administrateur, je veux gérer le contenu des pages statiques et des articles d'actualité afin de garder le site vitrine à jour sans intervention développeur.</td><td>Must</td><td class="num">4 j</td></tr>
+        <tr><td>H6</td><td>Administrateur</td><td>Administrateur</td><td>En tant qu'administrateur, je veux disposer de toutes les fonctionnalités commerciales et comptables afin de superviser le fonctionnement global du site.</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>I1</td><td>Sécurité / légal / RGPD</td><td>Visiteur</td><td>En tant que visiteur, je veux être informé et donner mon consentement sur l'usage des cookies afin que mes droits soient respectés (RGPD/CNIL).</td><td>Must</td><td class="num">2 j</td></tr>
+        <tr><td>I2</td><td>Sécurité / légal / RGPD</td><td>Client</td><td>En tant que client, je veux pouvoir demander l'accès, la rectification ou la suppression de mes données personnelles afin d'exercer mes droits RGPD.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>I3</td><td>Sécurité / légal / RGPD</td><td>Administrateur</td><td>En tant qu'administrateur, je veux que les mots de passe et données sensibles soient protégés (hash, HTTPS, sauvegardes) afin de garantir la sécurité des comptes.</td><td>Must</td><td class="num">3 j</td></tr>
+        <tr><td>J1</td><td>Technique / SEO / éco-conception</td><td>Porteur de projet</td><td>En tant que porteur de projet, je veux que chaque page publique soit optimisée pour le référencement (balises, sitemap, données structurées) afin d'améliorer la visibilité du site.</td><td>Must</td><td class="num">4 j</td></tr>
+        <tr><td>J2</td><td>Technique / SEO / éco-conception</td><td>Porteur de projet</td><td>En tant que porteur de projet, je veux que le site respecte les principes d'éco-conception (poids des pages, images optimisées, sobriété du design) afin de limiter son empreinte environnementale.</td><td>Should</td><td class="num">3 j</td></tr>
+        <tr><td>J3</td><td>Technique / SEO / éco-conception</td><td>Porteur de projet</td><td>En tant que porteur de projet, je veux que le site soit testé sur les principaux navigateurs et tailles d'écran afin de garantir une expérience homogène.</td><td>Must</td><td class="num">3 j</td></tr>
       </tbody>
     </table></div>
 

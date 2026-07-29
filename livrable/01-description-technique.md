@@ -82,3 +82,9 @@ Ces solutions auraient pu réduire le temps de développement de la boutique de 
 ## 1.8 Point de vigilance identifié
 
 La police de caractères utilisée pour le logo (Stadio Now Display) a été trouvée sous forme de **version d'essai** sur un site tiers. Avant toute mise en production, il est nécessaire de vérifier et, le cas échéant, d'acquérir une **licence commerciale** en règle auprès de la fonderie éditrice, faute de quoi l'utilisation du logo/de la police sur un site marchand exposerait le client à un risque juridique. Ce point est budgété en §5 et doit être remonté au directeur dès son retour.
+
+## 1.9 Risques projet
+
+Le directeur de La Socketterie entretient une relation personnelle avec notre directeur (parties de golf régulières, épouses amies d'enfance). Cette proximité est un atout pour la relation commerciale, mais elle représente aussi un **risque de gouvernance de projet** : elle peut faciliter des demandes informelles transmises hors du circuit officiel (directement entre directeurs, en dehors du backlog), avec un risque de dérive du périmètre ou de pression à traiter en urgence une demande non priorisée, au détriment du planning validé.
+
+**Mesure de mitigation** : toute demande du client, quel que soit le canal par lequel elle arrive (y compris directement au directeur), doit être formalisée en user story, ajoutée au backlog et priorisée selon le même processus que les autres demandes avant d'être engagée. Ceci protège à la fois le respect des échéances (tournage / diffusion) et la qualité du livrable, et évite d'exposer la relation personnelle entre les deux directeurs à un différend professionnel.
