@@ -4,7 +4,9 @@
 
 **GitHub Projects**, directement lié au dépôt de code (chaque carte peut être reliée à une issue et à une pull request), ce qui évite de dupliquer le suivi dans un outil déconnecté du code (cf. §1.6). Alternative équivalente possible : Trello.
 
-**Lien vers la version en ligne** : *à insérer ici après création du tableau sur le compte GitHub organisation du client (ex. `https://github.com/orgs/la-socketterie/projects/1`) — non généré dans ce document car il nécessite un compte réel.*
+**Lien vers la version en ligne** : https://github.com/users/thrax28700/projects/3 (tableau public, lié au dépôt du projet)
+
+À la création du tableau (fin de cadrage), les 42 user stories du §2 y ont été importées sous forme de cartes, toutes placées dans la colonne **Backlog** puisqu'aucun développement n'a encore démarré. La répartition ci-dessous (§"Photo du tableau") est un exemple illustratif de ce à quoi ressemblera le tableau une fois le développement engagé, pas l'état actuel.
 
 ## Colonnes
 
