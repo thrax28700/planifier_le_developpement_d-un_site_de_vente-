@@ -47,4 +47,4 @@ Priorité selon la méthode MoSCoW : **Must** (indispensable), **Should** (impor
 | J2 | Technique / SEO / éco-conception | Porteur de projet | En tant que porteur de projet, je veux que le site respecte les principes d'éco-conception (poids des pages, images optimisées, sobriété du design) afin de limiter son empreinte environnementale. | Should | 3 |
 | J3 | Technique / SEO / éco-conception | Porteur de projet | En tant que porteur de projet, je veux que le site soit testé sur les principaux navigateurs et tailles d'écran afin de garantir une expérience homogène. | Must | 3 |
 
-**Total des user stories : 39 — Effort brut cumulé : ≈ 108 jours-développeur** (ce total sert de base à la répartition des tâches du diagramme de Gantt, réparti entre plusieurs ressources en parallèle — cf. §4).
+**Total des user stories : 42 — Effort brut cumulé : ≈ 124 jours-développeur** (ce total sert de base à la répartition des tâches du diagramme de Gantt, réparti entre plusieurs ressources en parallèle — cf. §4).
