@@ -13,7 +13,9 @@ Le livrable se trouve dans [`livrable/`](livrable/) :
 | `03-kanban.md` | Colonnes du tableau Kanban et photo d'exemple |
 | `04-gantt.md` | Diagramme de Gantt (Mermaid, en jours ouvrés) et répartition des ressources |
 | `05-estimation-couts.md` | Chiffrage détaillé (ressources humaines, technique, maintenance) |
-| `livrable-la-socketterie.html` | Version consolidée et mise en forme des cinq sections ci-dessus, imprimable en PDF |
+| `gantt.png` | Capture du diagramme de Gantt (généré à partir du planning, cf. `04-gantt.md`) |
+| `Vaillant_Renaud_Planifier_le_developpement_d_un_site_de_vente.docx` | **Livrable final**, document Word consolidant les cinq sections — à ouvrir dans Word/Google Docs/LibreOffice Writer et exporter en PDF pour la remise |
+| `livrable-la-socketterie.html` | Version HTML alternative (bonus), imprimable directement en PDF depuis un navigateur |
 
 ## Organisation Git
 
